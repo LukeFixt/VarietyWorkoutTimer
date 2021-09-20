@@ -1,0 +1,13 @@
+#calendar th:not(:first-of-type),
+#calendar td:not(:first-of-type) {
+  border-left: 1px solid #e0e0e0;
+}
+#calendar th {
+  width: calc(100%/7);
+}
+#calendar td[disabled] {
+  opacity: .5;
+}
+#calendar td.today {
+  font-weight: bold;
+}

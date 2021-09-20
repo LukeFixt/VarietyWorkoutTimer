@@ -1,1 +1,90 @@
-<button class="fab with-text"><i class="material-icons">add</i>&nbsp;New exercise</button>
+<button class="fab with-text" id="add"><i class="material-icons">add</i>&nbsp;New exercise</button>
+
+<div class="container mt-3">
+  <div class="row" id="exerciseGrid">
+  </div>
+</div>
+
+
+<div id="tempExercise" class="col-4 hidden" >
+  <div class="card">
+    <div class="card-ripple-container ripple-e">
+      <div class="card-header">
+        <h2 class="card-title top">__sets x __reps</h2>
+        <button class="fab"><i class="material-icons">tune</i></button>
+        <img
+          src=""
+          class="card-img background-dark material-icons">
+        <h3 class="card-title">__title</h3>
+        <h4 class="card-meta-title">__group / __type</h4>
+      </div>
+      <div class="card-content">
+        <p class="card-meta-text">__desc</p>
+      </div>
+    </div>
+    <div class="timeline"></div>
+    <div class="card-footer">
+      <div class="card-footer-start">
+        <span class="chip"><i class="material-icons">timer</i>__total</span>
+        <span class="chip background-danger text-light"><i class="material-icons">bolt</i>__timeActive</span>
+        <span class="chip background-secondary"><i class="material-icons">self_improvement</i>__timeRest</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  groups = ['Neck', 'Shoulders', 'Upper Arms', 'Lower Arms', 'Chest', 'Abdomen', 'Back', 'Butt', 'Thighs', 'Calves'];
+  types = ['Balance', 'Endurance', 'Flexibility', 'Strength'];
+
+  function addExercise(newExercise) {
+    const base = {
+      title: '',
+      desc: '',
+      group: random(groups),
+      type: random(types),
+      sets: random(3,5),
+      reps: random(10,20),
+      total: 0,
+      timeActive: random(90,120),
+      timeRest: random(30,60),
+      media: '',
+    }
+    base['total'] = base['sets'] * (base['timeActive']+base['timeRest']);
+    const exercise = {
+      ...base,
+      ...newExercise
+    }
+
+    const temp = $('#tempExercise').clone().removeClass('hidden').removeAttr('id');
+    temp.html(
+      temp.html()
+        .replace('__title', exercise['title'])
+        .replace('__group', exercise['group'])
+        .replace('__type', exercise['type'])
+        .replace('__sets', exercise['sets'])
+        .replace('__reps', exercise['reps'])
+        .replace('__desc', exercise['desc'])
+        .replace('__total', time(exercise['total']))
+        .replace('__timeActive', time(exercise['timeActive']))
+        .replace('__timeRest', time(exercise['timeRest']))
+        .replace('__media', exercise['media'])
+    );
+
+    let active = $('<div class="active"></div>').width((exercise['timeActive']/(exercise['total']/100)).toString()+'%');
+    let rest = $('<div class="rest"></div>').width((exercise['timeRest']/(exercise['total']/100)).toString() +'%');
+
+    for(i = 0; i < exercise['sets']; i++){
+      active.clone().appendTo(temp.find('.timeline'));
+      rest.clone().appendTo(temp.find('.timeline'));
+    }    
+
+    temp.appendTo($('#exerciseGrid'));
+  }
+  addExercise({title:'Egg'})
+
+  $('#add').on('click',e=>{
+    addExercise()
+  })
+
+</script>

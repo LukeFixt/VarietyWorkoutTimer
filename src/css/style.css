@@ -1,0 +1,55 @@
+.hidden {
+  display: none;
+}
+
+.text-light {
+  color: #fff;
+}
+
+.card-header .fab {
+  position: absolute;
+  right: 15px;
+  z-index: 5;
+}
+
+.card-header .card-title.top {
+  position: absolute;
+  left: 15px;
+  z-index: 5;
+  color: #fff;
+  font-size: 2em !important;
+  text-shadow: 0 .15em .2em #00000022;
+}
+
+.card-header img.background-dark[src=''] {
+  height: 200px;
+  display: inline-block;
+  position: relative;
+}
+
+.card-header img.background-dark[src='']:before {
+  content: 'fitness_center';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  line-height: 200px;
+  text-align: center;
+  font-size: 8em;
+  opacity: .5;
+}
+
+#exerciseGrid .card .timeline {
+  height: 4px;
+  background: #e6e6e6;
+  overflow: hidden;
+  display: flex;
+}
+#exerciseGrid .card .timeline .active {
+  background: var(--danger);
+  height: 4px;
+}
+#exerciseGrid .card .timeline .rest {
+  background: var(--secondary);
+  height: 4px;
+}

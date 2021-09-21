@@ -2,7 +2,11 @@ function loadPage(link) {
   const page = $('#page');
   $(page).load(`pages/${link.toLowerCase()}.html`);
   $('title').text(link + ' | Variety Workout Timer');
-  window.location = '#' + link;
+
+  $('*[data-page]').each((i,e)=>{
+    $(e).removeClass('outlined');
+  })
+  $(`[data-page="${link}"]`).addClass('outlined');
 }
 
 const links = [];

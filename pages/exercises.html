@@ -1,17 +1,18 @@
-<button class="fab with-text" id="add"><i class="material-icons">add</i>&nbsp;New exercise</button>
 
-<div class="container mt-3">
+<div class="container">
+  <button class="fab with-text mb-4" id="add"><i class="material-icons">add</i>&nbsp;New exercise</button>
+
   <div class="row" id="exerciseGrid">
   </div>
 </div>
 
 
 <div id="tempExercise" class="col-4 hidden" >
-  <div class="card">
-    <div class="card-ripple-container ripple-e">
+  <div class="card text-dark elevation-3 mb-4">
+    <div class="card-ripple-container ripple-e primary-dark">
       <div class="card-header">
         <h2 class="card-title top">__sets x __reps</h2>
-        <button class="fab"><i class="material-icons">tune</i></button>
+        <button class="fab" data-tooltip="Edit"><i class="material-icons">tune</i></button>
         <img
           src=""
           class="card-img background-dark material-icons">
@@ -25,9 +26,11 @@
     <div class="timeline"></div>
     <div class="card-footer">
       <div class="card-footer-start">
-        <span class="chip"><i class="material-icons">timer</i>__total</span>
-        <span class="chip background-danger text-light"><i class="material-icons">bolt</i>__timeActive</span>
-        <span class="chip background-secondary"><i class="material-icons">self_improvement</i>__timeRest</span>
+        <span class="chip outlined text-primary" data-tooltip="Active time"><b><i class="material-icons">bolt</i>__timeActive</b></span>
+        <span class="chip outlined text-secondary" data-tooltip="Rest time"><b><i class="material-icons">self_improvement</i>__timeRest</b></span>
+      </div>
+      <div class="card-footer-end">
+        <span class="chip outlined text-dark" data-tooltip="Total time"><b><i class="material-icons">timer</i>__total</b></span>
       </div>
     </div>
   </div>
@@ -45,16 +48,16 @@
       type: random(types),
       sets: random(3,5),
       reps: random(10,20),
-      total: 0,
       timeActive: random(90,120),
       timeRest: random(30,60),
       media: '',
+      total: 0
     }
-    base['total'] = base['sets'] * (base['timeActive']+base['timeRest']);
     const exercise = {
       ...base,
       ...newExercise
     }
+    exercise['total'] = exercise['sets'] * (exercise['timeActive']+exercise['timeRest']);
 
     const temp = $('#tempExercise').clone().removeClass('hidden').removeAttr('id');
     temp.html(
@@ -81,10 +84,22 @@
 
     temp.appendTo($('#exerciseGrid'));
   }
-  addExercise({title:'Egg'})
+  addExercise({
+    title: 'Standing Lunge',
+    group: 'Butt',
+    type: 'Strength',
+    sets: 3,
+    reps: 20,
+    timeActive: 90,
+    timeRest: 60,
+  })
 
   $('#add').on('click',e=>{
-    addExercise()
+    let name = random(groups);
+    addExercise({
+      title: name,
+      group: name
+    })
   })
 
 </script>

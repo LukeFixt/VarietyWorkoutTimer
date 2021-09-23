@@ -1,5 +1,6 @@
 <div class="container-fluid flex mb-4">
-  <button class="fab with-text" id="add"><i class="material-icons">add</i>&nbsp;New exercise</button>
+  <button class="fab with-text" data-trigger="dialog" data-dialog="#newExercise"><i
+      class="material-icons">add</i>&nbsp;New exercise</button>
 
   <div class="text-dark ms-3">Group<span id="group-filter"></span></div>
   <div class="text-dark ms-3">Type<span id="type-filter"></span></div>
@@ -11,13 +12,13 @@
 
 <div id="tempExercise" class="col-12 col-lg-4 col-xl-3 col-md-6 hidden">
   <div class="card text-dark elevation-3 mb-4">
-    <div class="card-ripple-container ripple-e">
+    <div class="card-ripple-container ripple-e __type">
       <div class="card-header">
-        <h2 class="card-title top">__sets x __reps</h2>
-        <button class="fab" data-tooltip="Edit exercise" alt="Edit exercise"><i class="material-icons">tune</i></button>
+        <h2 class="card-title top">__title</h2>
+        <!-- <button class="fab" data-tooltip="Edit exercise" alt="Edit exercise"><i class="material-icons">tune</i></button> -->
         <img src="" class="card-img background-dark material-icons">
-        <h3 class="card-title">__title</h3>
-        <h4 class="card-meta-title">__group / __type</h4>
+        <h3 class="card-title"><div class="chip me-1 mb-1">__groups</div><div class="chip __type">__type</div></h3>
+        <h4 class="card-meta-title">__sets x __reps</h4>
       </div>
       <div class="card-content">
         <p class="card-meta-text">__desc</p>
@@ -42,5 +43,69 @@
   </div>
 </div>
 
+
+<div class="dialog-overlay open" id="newExercise">
+  <div class="dialog col-8">
+    <div class="dialog-header">
+      <h3>New Exercise</h3>
+    </div>
+    <div class="dialog-content">
+      <div class="flex mb-2">
+        <label class="textfield filled me-1">
+          <input placeholder=" " id="title">
+          <span>Title</span>
+        </label>
+        <label class="textfield filled ms-1">
+          <input type="url" placeholder=" " id="media">
+          <span>Media (URL)</span>
+        </label>
+      </div>
+      <label class="textfield filled mb-3">
+        <textarea placeholder=" " id="desc"></textarea>
+        <span>Description</span>
+      </label>
+      <div class="flex mb-3">
+        <label class="textfield filled me-1">
+          <input type="number" value="3" min="1" step="1" id="sets">
+          <span>Sets</span>
+        </label>
+        <label class="textfield filled ms-1 me-2">
+          <input type="number" value="10" min="1" step="1" id="reps">
+          <span>Reps</span>
+        </label>
+        <label class="textfield filled ms-2 me-1">
+          <input type="number" value="60" data-min="1" step="10" id="timeActive">
+          <span>Active time (seconds)</span>
+        </label>
+        <label class="textfield filled ms-1">
+          <input type="number" value="30" data-min="1" step="10" id="timeRest">
+          <span>Rest time (seconds)</span>
+        </label>
+      </div>
+      <div class="flex">
+        <div class="text-dark me-1"><h5>Groups</h5><span id="group-add"></span></div>
+        <div class="text-dark ms-1"><h5>Type</h5><span id="type-add"></span></div>
+      </div>  
+    </div>
+    <div class="dialog-footer">
+      <button id="add">Add</button>
+      <button class="text" data-trigger="dialog" data-dialog="#newExercise" data-action="close">Cancel</button>
+      
+      <div id="newTime" class="card-footer me-auto">
+        <div class="card-footer-start">
+          <span class="chip background-none text-primary" data-tooltip="Active time" alt="Active time">
+            <b><i class="material-icons">bolt</i><span id="timeActive"></span></b>
+          </span>
+          <span class="chip background-none text-secondary" data-tooltip="Rest time" alt="Rest time">
+            <b><i class="material-icons">self_improvement</i><span id="timeRest"></span></b>
+          </span>
+          <span class="chip background-none text-dark" data-tooltip="Total time" alt="Total time">
+            <b><i class="material-icons">timer</i><span id="total"></span></b>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="src/js/exercises.js"></script>

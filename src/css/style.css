@@ -76,6 +76,7 @@
 }
 .tooltip {
   font-size: .8rem;
+  z-index: 999;
 }
 
 body {
@@ -83,4 +84,30 @@ body {
 }
 .flex {
   display: flex;
+}
+
+.chip.Balance {
+  background-color: #0057D94a !important;
+}
+.chip.Endurance {
+  background-color: #00D9544a !important;
+}
+.chip.Flexibility {
+  background-color: #D990004a !important;
+}
+.chip.Strength {
+  background-color: #D9160B4a !important;
+}
+
+.Balance.ripple-e {
+  --ripple-color: #0057D94a;
+}
+.Endurance.ripple-e {
+  --ripple-color: #00D9544a;
+}
+.Flexibility.ripple-e {
+  --ripple-color: #D990004a;
+}
+.Strength.ripple-e {
+  --ripple-color: #D9160B4a;
 }

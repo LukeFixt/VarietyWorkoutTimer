@@ -1,7 +1,7 @@
 groups = ['Neck', 'Shoulders', 'Upper Arms', 'Lower Arms', 'Chest', 'Abdomen', 'Back', 'Butt', 'Thighs', 'Calves'];
 types = ['Balance', 'Endurance', 'Flexibility', 'Strength'];
 
-chipFilter = $('<span class="chip active"></span>');
+chipFilter = $('<span class="chip active ms-1 mb-1"></span>');
 chipFilter.on('click', e => {
   $(e.target).toggleClass('active');
   filter($('#exerciseGrid'), e);
@@ -14,7 +14,28 @@ groups.forEach(group => {
 
 typeFilter = $('#type-filter');
 types.forEach(type => {
-  typeFilter.append(chipFilter.clone(true).text(type));
+  typeFilter.append(chipFilter.clone(true).addClass(type).text(type));
+});
+
+chipFilter.off().on('click', e => {
+  $(e.target).toggleClass('active');
+});
+
+
+groupAdd = $('#group-add');
+groups.forEach(group => {
+  groupAdd.append(chipFilter.clone(true).removeClass('active').text(group));
+});
+
+typeAdd = $('#type-add');
+
+chipFilter.off().on('click', e => {
+  $('.active',typeAdd).removeClass('active');
+  $(e.target).toggleClass('active');
+});
+
+types.forEach(type => {
+  typeAdd.append(chipFilter.clone(true).removeClass('active').text(type));
 });
 
 function filter(cardParent, item) {
@@ -41,14 +62,14 @@ function filter(cardParent, item) {
       }
     }
   });
-
 }
 
 function addExercise(newExercise) {
+  console.log(newExercise)
   const base = {
     title: '',
     desc: '',
-    group: random(groups),
+    groups: [random(groups)],
     type: random(types),
     sets: random(3, 5),
     reps: random(10, 20),
@@ -67,8 +88,8 @@ function addExercise(newExercise) {
   temp.html(
     temp.html()
       .replace('__title', exercise['title'])
-      .replace('__group', exercise['group'])
-      .replace('__type', exercise['type'])
+      .replace('__groups', exercise['groups'].join('</div><div class="chip me-1 mb-1">'))
+      .replaceAll('__type', exercise['type'])
       .replace('__sets', exercise['sets'])
       .replace('__reps', exercise['reps'])
       .replace('__desc', exercise['desc'])
@@ -77,6 +98,8 @@ function addExercise(newExercise) {
       .replace('__timeRest', time(exercise['timeRest']))
       .replace('__media', exercise['media'])
   );
+
+  temp.exercise = exercise;
 
   let active = $('<div class="active"></div>').width((exercise['timeActive'] / (exercise['total'] / 100)).toString() + '%');
   let rest = $('<div class="rest"></div>').width((exercise['timeRest'] / (exercise['total'] / 100)).toString() + '%');
@@ -105,7 +128,7 @@ function addExercise(newExercise) {
 }
 addExercise({
   title: 'Standing Lunge',
-  group: 'Butt',
+  groups: ['Butt'],
   type: 'Strength',
   sets: 3,
   reps: 20,
@@ -114,9 +137,49 @@ addExercise({
 })
 
 $('#add').on('click', e => {
-  let name = random(groups);
+  papa = $('#newExercise .dialog-content');
+
+  group = [];
+  $('#group-add .active',papa).each((i,e)=>group.push($(e).text()));
+
+  type = [];
+  $('#type-add .active',papa).each((i,e)=>type.push($(e).text()));
+  
   addExercise({
-    title: name,
-    group: name
+    title: $('#title',papa).val(),
+    desc: $('#desc',papa).val(),
+    groups: group,
+    type: type,
+    sets: Number($('#sets',papa).val()),
+    reps: Number($('#reps',papa).val()),
+    timeActive: Number($('#timeActive',papa).val()),
+    timeRest: Number($('#timeRest',papa).val()),
+    media: $('#media',papa).val(),
+    total: 0
   })
 })
+
+function updateNewTime(){
+  papa = $('#newTime');
+  sets = Number($('#newExercise #sets').val());
+  active = Number($('#newExercise #timeActive').val());
+  rest = Number($('#newExercise #timeRest').val());
+
+  total = sets * (active + rest);
+  
+  $('#total',papa).text(time(total));
+  $('#timeActive',papa).text(time(active));
+  $('#timeRest',papa).text(time(rest));
+}
+
+updateNewTime();
+
+$('#newExercise input[type="number"]').each((i,e)=>{
+  $(e).on('input',ev=>{
+    updateNewTime()
+  });
+})
+
+
+
+dataMin();

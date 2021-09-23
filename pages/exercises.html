@@ -6,12 +6,12 @@
 </div>
 
 
-<div id="tempExercise" class="col-12 col-lg-4 col-md-6 hidden" >
+<div id="tempExercise" class="col-12 col-lg-4 col-xl-3 col-md-6 hidden" >
   <div class="card text-dark elevation-3 mb-4">
     <div class="card-ripple-container ripple-e primary-dark">
       <div class="card-header">
         <h2 class="card-title top">__sets x __reps</h2>
-        <button class="fab" data-tooltip="Edit"><i class="material-icons">tune</i></button>
+        <button class="fab" data-tooltip="Edit exercise" alt="Edit exercise"><i class="material-icons">tune</i></button>
         <img
           src=""
           class="card-img background-dark material-icons">
@@ -25,80 +25,15 @@
     <div class="timeline"></div>
     <div class="card-footer">
       <div class="card-footer-start">
-        <span class="chip background-none text-primary" data-tooltip="Active time"><b><i class="material-icons">bolt</i>__timeActive</b></span>
-        <span class="chip background-none text-secondary" data-tooltip="Rest time"><b><i class="material-icons">self_improvement</i>__timeRest</b></span>
+        <span class="chip background-none text-primary" data-tooltip="Active time" alt="Active time"><b><i class="material-icons">bolt</i>__timeActive</b></span>
+        <span class="chip background-none text-secondary" data-tooltip="Rest time" alt="Rest time"><b><i class="material-icons">self_improvement</i>__timeRest</b></span>
       </div>
       <div class="card-footer-end">
-        <span class="chip background-none text-dark" data-tooltip="Total time"><b><i class="material-icons">timer</i>__total</b></span>
+        <span class="chip background-none text-dark" data-tooltip="Total time" alt="Total time"><b><i class="material-icons">timer</i>__total</b></span>
       </div>
     </div>
   </div>
 </div>
 
-<script>
-  groups = ['Neck', 'Shoulders', 'Upper Arms', 'Lower Arms', 'Chest', 'Abdomen', 'Back', 'Butt', 'Thighs', 'Calves'];
-  types = ['Balance', 'Endurance', 'Flexibility', 'Strength'];
 
-  function addExercise(newExercise) {
-    const base = {
-      title: '',
-      desc: '',
-      group: random(groups),
-      type: random(types),
-      sets: random(3,5),
-      reps: random(10,20),
-      timeActive: random(90,120),
-      timeRest: random(30,60),
-      media: '',
-      total: 0
-    }
-    const exercise = {
-      ...base,
-      ...newExercise
-    }
-    exercise['total'] = exercise['sets'] * (exercise['timeActive']+exercise['timeRest']);
-
-    const temp = $('#tempExercise').clone().removeClass('hidden').removeAttr('id');
-    temp.html(
-      temp.html()
-        .replace('__title', exercise['title'])
-        .replace('__group', exercise['group'])
-        .replace('__type', exercise['type'])
-        .replace('__sets', exercise['sets'])
-        .replace('__reps', exercise['reps'])
-        .replace('__desc', exercise['desc'])
-        .replace('__total', time(exercise['total']))
-        .replace('__timeActive', time(exercise['timeActive']))
-        .replace('__timeRest', time(exercise['timeRest']))
-        .replace('__media', exercise['media'])
-    );
-
-    let active = $('<div class="active"></div>').width((exercise['timeActive']/(exercise['total']/100)).toString()+'%');
-    let rest = $('<div class="rest"></div>').width((exercise['timeRest']/(exercise['total']/100)).toString() +'%');
-
-    for(i = 0; i < exercise['sets']; i++){
-      active.clone().appendTo(temp.find('.timeline'));
-      rest.clone().appendTo(temp.find('.timeline'));
-    }    
-
-    temp.appendTo($('#exerciseGrid'));
-  }
-  addExercise({
-    title: 'Standing Lunge',
-    group: 'Butt',
-    type: 'Strength',
-    sets: 3,
-    reps: 20,
-    timeActive: 90,
-    timeRest: 60,
-  })
-
-  $('#add').on('click',e=>{
-    let name = random(groups);
-    addExercise({
-      title: name,
-      group: name
-    })
-  })
-
-</script>
+<script src="src/js/exercises.js"></script>

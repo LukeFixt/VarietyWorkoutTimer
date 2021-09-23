@@ -54,9 +54,9 @@
   height: 4px;
 }
 
-.card {
-  /* border-radius: 24px; */
-}
+/* .card {
+  border-radius: 24px;
+} */
 .appbar .btn.shaped {
   border-radius: 4px !important;
 }
@@ -80,4 +80,7 @@
 
 body {
   background: var(--secondary-light);
+}
+.flex {
+  display: flex;
 }

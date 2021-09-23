@@ -3,15 +3,15 @@ function loadPage(link) {
   $(page).load(`pages/${link.toLowerCase()}.html`);
   $('title').text(link + ' | Variety Workout Timer');
 
-  $('*[data-page]').each((i,e)=>{
+  $('.appbar a').each((i,e)=>{
     $(e).removeClass('outlined');
-  })
-  $(`[data-page="${link}"]`).addClass('outlined');
+  });
+  $(`.appbar a[href="#${link}"]`).addClass('outlined');
 }
 
 const links = [];
-$('*[data-page]').each((i, el) => {
-  let link = $(el).data('page');
+$('.appbar a').each((i, el) => {
+  let link = $(el).attr('href').split('#')[1];
   links.push(link);
   $(el).on('click', e => {
     loadPage(link);
@@ -52,15 +52,13 @@ function time(seconds){
   let mins = 0 || Math.floor(secondsStr[0]);
   let secs = 0 || Math.floor(('.'+secondsStr[1]) * 60);
   
-  if(mins > 0) {
-    mins += 'm';
-  } else {
-    mins = ''
+  if(mins < 1) {
+    mins = '0'
   }
   if(secs > 0) {
-    secs += 's';
+    secs = ('0'+secs).slice(-2)
   } else {
-    secs = ''
+    secs = '00'
   }
-  return ([mins, secs].join(' ')).trim();
+  return ([mins, secs].join(':')).trim();
 }

@@ -49,8 +49,8 @@ function random(num, max = null, floor = true) {
 
 function time(seconds){
   let secondsStr = (seconds.toFixed(2)/60).toString().split('.');
-  let mins = 0 || Math.floor(secondsStr[0]);
-  let secs = 0 || Math.floor(('.'+secondsStr[1]) * 60);
+  let mins = 0 || Math.round(secondsStr[0]);
+  let secs = 0 || Math.round(('.'+secondsStr[1]) * 60);
   
   if(mins < 1) {
     mins = '0'
@@ -61,4 +61,15 @@ function time(seconds){
     secs = '00'
   }
   return ([mins, secs].join(':')).trim();
+}
+
+function dataMin(){
+  $('[data-min]').each((i,e)=>{
+    let min = $(e).data('min');
+    $(e).on('change',ev=>{
+      if(e.value < min){
+        e.value = min;
+      }
+    })
+  })
 }

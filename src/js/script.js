@@ -48,7 +48,7 @@ function random(num, max = null, floor = true) {
 }
 
 function time(seconds){
-  let secondsStr = (seconds.toFixed(2)/60).toString().split('.');
+  let secondsStr = (Number(seconds).toFixed(2)/60).toString().split('.');
   let mins = 0 || Math.round(secondsStr[0]);
   let secs = 0 || Math.round(('.'+secondsStr[1]) * 60);
   

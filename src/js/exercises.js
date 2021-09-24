@@ -91,7 +91,7 @@ baseExercise = {
 
 function addExercise(newExercise) {
   const base = baseExercise;
-  baseExercise.id = +new Date();
+  baseExercise.id = (new Date()).getTime();
   const exercise = {
     ...base,
     ...newExercise
@@ -171,14 +171,16 @@ addExercise({
 createExercise = $('#createExercise');
 
 function editExercise(exercise, update = false) {
+  papa = $('.dialog-content', createExercise);
   if (update) {
     $('.dialog-header').text('Edit Exercise');
     $('#add').text('Update');
+    $(papa).data('id', exercise.id);
   } else {
     $('.dialog-header').text('New Exercise');
     $('#add').text('Add');
+    $(papa).data('id',(new Date()).getTime());
   }
-  papa = $('.dialog-content', createExercise);
 
   $('[name=group-add] .chip', papa).each((i, e) => {
     if (exercise.groups.includes($(e).text())) {
@@ -200,6 +202,8 @@ function editExercise(exercise, update = false) {
     }
   });
 
+  console.log($(papa).data('id'))
+
   $('[name=title]', papa).val(exercise.title);
   $('[name=desc]', papa).val(exercise.desc);
   $('[name=sets]', papa).val(exercise.sets);
@@ -207,7 +211,6 @@ function editExercise(exercise, update = false) {
   $('[name=timeActive]', papa).val(exercise.timeActive);
   $('[name=timeRest]', papa).val(exercise.timeRest);
   $('[name=media]', papa).val(exercise.media);
-  $(papa).data('id',exercise.id);
 
   updateNewTime();
 }
@@ -273,6 +276,8 @@ $('#add', createExercise).on('click', e => {
     type = [];
     $('[name=type-add] .active', papa).each((i, e) => type.push($(e).text()));
 
+    console.log($(papa).data('id'));
+
     addExercise({
       title: $('[name=title]', papa).val(),
       desc: $('[name=desc]', papa).val(),
@@ -284,7 +289,7 @@ $('#add', createExercise).on('click', e => {
       timeRest: Number($('[name=timeRest]', papa).val()),
       media: $('[name=media]', papa).val(),
       total: 0,
-      id: $(papa).data('id') || +new Date()
+      id: $(papa).data('id')
     })
     createExercise.removeClass('open');
   }

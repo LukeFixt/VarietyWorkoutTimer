@@ -1,5 +1,5 @@
 <div class="container-fluid flex mb-4">
-  <button class="fab with-text" data-trigger="dialog" data-dialog="#newExercise"><i
+  <button class="fab with-text" id="newExercise" data-trigger="dialog" data-dialog="#createExercise"><i
       class="material-icons">add</i>&nbsp;New exercise</button>
 
   <div class="text-dark ms-3">Group<span id="group-filter"></span></div>
@@ -12,7 +12,7 @@
 
 <div id="tempExercise" class="col-12 col-lg-4 col-xl-3 col-md-6 hidden">
   <div class="card text-dark elevation-3 mb-4">
-    <div class="card-ripple-container ripple-e __type">
+    <div class="card-ripple-container ripple-e __type" data-trigger="dialog" data-dialog="#createExercise">
       <div class="card-header">
         <h2 class="card-title top">__title</h2>
         <!-- <button class="fab" data-tooltip="Edit exercise" alt="Edit exercise"><i class="material-icons">tune</i></button> -->
@@ -44,52 +44,52 @@
 </div>
 
 
-<div class="dialog-overlay open" id="newExercise">
+<div class="dialog-overlay disabled" id="createExercise">
   <div class="dialog col-8">
     <div class="dialog-header">
       <h3>New Exercise</h3>
     </div>
-    <div class="dialog-content">
+    <form class="dialog-content">
       <div class="flex mb-2">
         <label class="textfield filled me-1">
-          <input placeholder=" " id="title">
-          <span>Title</span>
+          <input placeholder=" " name="title" required>
+          <span>Title*</span>
         </label>
         <label class="textfield filled ms-1">
-          <input type="url" placeholder=" " id="media">
+          <input type="url" placeholder=" " name="media">
           <span>Media (URL)</span>
         </label>
       </div>
       <label class="textfield filled mb-3">
-        <textarea placeholder=" " id="desc"></textarea>
+        <textarea placeholder=" " name="desc"></textarea>
         <span>Description</span>
       </label>
       <div class="flex mb-3">
         <label class="textfield filled me-1">
-          <input type="number" value="3" min="1" step="1" id="sets">
-          <span>Sets</span>
+          <input type="number" value="3" min="1" step="1" name="sets" required>
+          <span>Sets*</span>
         </label>
         <label class="textfield filled ms-1 me-2">
-          <input type="number" value="10" min="1" step="1" id="reps">
-          <span>Reps</span>
+          <input type="number" value="10" min="1" step="1" name="reps" required>
+          <span>Reps*</span>
         </label>
         <label class="textfield filled ms-2 me-1">
-          <input type="number" value="60" data-min="1" step="10" id="timeActive">
-          <span>Active time (seconds)</span>
+          <input type="number" value="60" min="1" step="1" name="timeActive" required>
+          <span>Active time (seconds)*</span>
         </label>
         <label class="textfield filled ms-1">
-          <input type="number" value="30" data-min="1" step="10" id="timeRest">
-          <span>Rest time (seconds)</span>
+          <input type="number" value="30" min="1" step="1" name="timeRest" required>
+          <span>Rest time (seconds)*</span>
         </label>
       </div>
       <div class="flex">
-        <div class="text-dark me-1"><h5>Groups</h5><span id="group-add"></span></div>
-        <div class="text-dark ms-1"><h5>Type</h5><span id="type-add"></span></div>
+        <div class="text-dark me-1"><h5>Groups*</h5><span name="group-add"></span></div>
+        <div class="text-dark ms-1"><h5>Type*</h5><span name="type-add"></span></div>
       </div>  
-    </div>
+    </form>
     <div class="dialog-footer">
       <button id="add">Add</button>
-      <button class="text" data-trigger="dialog" data-dialog="#newExercise" data-action="close">Cancel</button>
+      <button class="text" id="cancel">Cancel</button>
       
       <div id="newTime" class="card-footer me-auto">
         <div class="card-footer-start">

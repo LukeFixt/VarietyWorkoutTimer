@@ -111,3 +111,41 @@ body {
 .Strength.ripple-e {
   --ripple-color: #D9160B4a;
 }
+
+.dialog .dialog-content {
+  overflow: visible;
+}
+
+.chip:focus,
+.chip:focus-within {
+  box-shadow: 0 0 0 2px;
+}
+.checkbox.chip {
+  padding: 4px 8px;
+  margin: 0 4px 4px 0;
+}
+.checkbox.chip, .checkbox.chip > span {
+  position: relative;
+}
+.checkbox.chip > span:before {
+  margin: 3px 5px 3px -1px;
+  border-radius: 50%;
+}
+.checkbox.chip > span:after {
+  left: 0;
+}
+.checkbox.chip > input {
+  height: 32px;
+  width: 32px;
+  top: 0;
+  left: 0;
+}
+
+.snackbar {
+  z-index: 999;
+}
+.error, .textfield.error *, .textfield.error *:before, .textfield.error *:after, .textfield.error, .textfield.error:before, .textfield.error:after {
+  border-color: var(--danger);
+  color: var(--danger) !important;
+  background-color: #ff3f0411;
+}

@@ -63,13 +63,13 @@ function time(seconds){
   return ([mins, secs].join(':')).trim();
 }
 
-function dataMin(){
-  $('[data-min]').each((i,e)=>{
-    let min = $(e).data('min');
-    $(e).on('change',ev=>{
-      if(e.value < min){
-        e.value = min;
-      }
-    })
+function errorWatch(element){
+  console.log(element);
+  $(element).on('input',(i,e)=>{
+    console.log(element);
+    if($(element).val() != ''){
+      $(element).parent().removeClass('error');
+      $(element).off('input');
+    }
   })
 }

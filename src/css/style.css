@@ -113,7 +113,8 @@ body {
 }
 
 .dialog .dialog-content {
-  overflow: visible;
+  margin: -4px;
+  padding: 4px;
 }
 
 .chip:focus,
@@ -148,4 +149,13 @@ body {
   border-color: var(--danger);
   color: var(--danger) !important;
   background-color: #ff3f0411;
+}
+
+@media (max-width: 1040px) {
+  .dialog .flex {
+    flex-direction: column;
+  }
+  .dialog .flex > * {
+    margin: 0 0 4px !important;
+  }
 }

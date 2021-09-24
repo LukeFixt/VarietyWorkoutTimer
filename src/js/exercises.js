@@ -21,6 +21,7 @@ types.forEach(type => {
 chipSelect = $('<label class="chip checkbox"><input type="checkbox"><span></span></label>');
 
 chipSelect.on('click', e => {
+  $(e.target).parents('div').removeClass('error')
   if ($(e.target).parents('.chip').find('input').is(':checked')) {
     $(e.target).parents('.chip').addClass('active');
   } else {
@@ -85,12 +86,12 @@ baseExercise = {
   timeActive: 60,
   timeRest: 30,
   media: '',
-  total: 0,
-  id: +new Date()
+  total: 0
 }
 
 function addExercise(newExercise) {
   const base = baseExercise;
+  baseExercise.id = +new Date();
   const exercise = {
     ...base,
     ...newExercise
@@ -112,7 +113,7 @@ function addExercise(newExercise) {
       .replace('__media', exercise.media)
   );
 
-  temp.exercise = exercise;
+  temp.data('exercise',exercise);
 
   let active = $('<div class="active"></div>').width((exercise.timeActive / (exercise.total / 100)).toString() + '%');
   let rest = $('<div class="rest"></div>').width((exercise.timeRest / (exercise.total / 100)).toString() + '%');
@@ -123,8 +124,7 @@ function addExercise(newExercise) {
   }
 
   $('.ripple-e', temp).on('click', e => {
-    console.log(temp.exercise)
-    editExercise(temp.exercise, true);
+    editExercise(temp.data('exercise'), true);
   });
 
 
@@ -135,7 +135,20 @@ function addExercise(newExercise) {
     $(e).click().addClass('unclick');
   })
 
-  temp.appendTo($('#exerciseGrid'));
+  replace = false;
+
+  $('#exerciseGrid > div').each((i,e)=>{
+    console.log(i, $(e).data('exercise').id, exercise.id)
+    if($(e).data('exercise').id == exercise.id){
+      replace = true;
+      $(e).after(temp);
+      $(e).remove();
+    }
+  });
+
+  if(!replace){
+    temp.appendTo($('#exerciseGrid'));
+  }
 
   $('.chip.unclick', groupFilter).each((i, e) => {
     $(e).click().removeClass('unclick');
@@ -143,6 +156,7 @@ function addExercise(newExercise) {
   $('.chip.unclick', typeFilter).each((i, e) => {
     $(e).click().removeClass('unclick');
   })
+  console.log(exercise)
 }
 addExercise({
   title: 'Standing Lunge',
@@ -193,6 +207,7 @@ function editExercise(exercise, update = false) {
   $('[name=timeActive]', papa).val(exercise.timeActive);
   $('[name=timeRest]', papa).val(exercise.timeRest);
   $('[name=media]', papa).val(exercise.media);
+  $(papa).data('id',exercise.id);
 
   updateNewTime();
 }
@@ -268,7 +283,8 @@ $('#add', createExercise).on('click', e => {
       timeActive: Number($('[name=timeActive]', papa).val()),
       timeRest: Number($('[name=timeRest]', papa).val()),
       media: $('[name=media]', papa).val(),
-      total: 0
+      total: 0,
+      id: $(papa).data('id') || +new Date()
     })
     createExercise.removeClass('open');
   }

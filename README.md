@@ -6,9 +6,9 @@ I don't enjoy doing the same excercise each session - this keeps it "fresh". Cur
 
 ## TODO
 - [ ] UI/UX
-  - [ ] Overview screen
+  - [ ] Overview/Dashboard screen
   - [ ] Workout screen
-  - [ ] Edit screen
+  - [ ] Exercises screen
   - [ ] Performance screen
   - [ ] Community screen (maybe/endgame)
 - [ ] Functionality

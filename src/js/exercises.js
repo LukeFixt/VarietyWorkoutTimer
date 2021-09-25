@@ -148,7 +148,7 @@ function addExercise(newExercise) {
 
   if(!replace){
     temp.appendTo($('#exerciseGrid'));
-  }
+  } else {}
 
   $('.chip.unclick', groupFilter).each((i, e) => {
     $(e).click().removeClass('unclick');
@@ -176,10 +176,14 @@ function editExercise(exercise, update = false) {
     $('.dialog-header').text('Edit Exercise');
     $('#add').text('Update');
     $(papa).data('id', exercise.id);
+
+    $('#delete').show();
   } else {
     $('.dialog-header').text('New Exercise');
     $('#add').text('Add');
     $(papa).data('id',(new Date()).getTime());
+
+    $('#delete').hide();
   }
 
   $('[name=group-add] .chip', papa).each((i, e) => {
@@ -296,7 +300,23 @@ $('#add', createExercise).on('click', e => {
 });
 
 $('#cancel', createExercise).on('click', e => {
+  // commented for dev
   // if(confirm('Are you sure you want to cancel making a new exercise?')){
   createExercise.removeClass('open');
   // }
+});
+
+
+$('#delete', createExercise).on('click', e => {
+  papa = $('.dialog-content', createExercise);
+  if(confirm(`Are you sure you want to delete ${$('[name=title]',papa).val()}?`)){
+
+  $('#exerciseGrid > div').each((i,e)=>{
+    console.log(i, $(e).data('exercise').id, $(papa).data('id'))
+    if($(e).data('exercise').id == $(papa).data('id')){
+      $(e).remove();
+      createExercise.removeClass('open');
+    }
+  });
+  }
 });

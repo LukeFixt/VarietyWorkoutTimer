@@ -1,4 +1,4 @@
-groups = ['Neck', 'Shoulders', 'Upper Arms', 'Lower Arms', 'Chest', 'Abdomen', 'Back', 'Butt', 'Thighs', 'Calves'];
+groups = ['Neck', 'Shoulders', 'Upper Arms', 'Lower Arms', 'Chest', 'Abdomen', 'Upper Back',  'Lower Back', 'Butt', 'Thighs', 'Calves'];
 types = ['Balance', 'Endurance', 'Flexibility', 'Strength'];
 
 chipFilter = $('<button class="chip active ms-1 mb-1 elevation-0" tabindex="0"></button>');
@@ -106,7 +106,8 @@ function addExercise(newExercise, load = false) {
   temp.html(
     temp.html()
       .replace('__title', exercise.title)
-      .replace('__groups', exercise.groups.join('</div><div class="chip me-1 mb-1">'))
+      .replace('__groups', exercise.groups.join(' '))
+      .replace('__body', '<div class="bodyGraphic"></div>')
       .replaceAll('__type', exercise.type)
       .replace('__sets', exercise.sets)
       .replace('__reps', exercise.reps)
@@ -116,6 +117,15 @@ function addExercise(newExercise, load = false) {
       .replace('__timeRest', time(exercise.timeRest))
       .replace('__media', exercise.media)
   );
+
+  svg = $('.bodyGraphic', temp).load('../src/img/body.svg');
+
+  setTimeout(() => {
+    var s = $('.bodyGraphic', temp);
+    exercise.groups.forEach(group => {
+      $('#' + camel(group), s).addClass('active').show();
+    })
+  }, 100);
 
   temp.data('exercise', exercise);
 
@@ -130,7 +140,6 @@ function addExercise(newExercise, load = false) {
   $('.ripple-e', temp).on('click', e => {
     editExercise(temp.data('exercise'), true);
   });
-
 
   $('.chip:not(.active)', groupFilter).each((i, e) => {
     $(e).click().addClass('unclick');
@@ -171,7 +180,7 @@ function addExercise(newExercise, load = false) {
 
 if (Exercises.length > 0) {
   Exercises.forEach(ex => {
-    addExercise(ex,true);
+    addExercise(ex, true);
   })
 } else {
   addExercise({
@@ -328,8 +337,8 @@ $('#delete', createExercise).on('click', e => {
     $('#exerciseGrid > div').each((i, e) => {
       if ($(e).data('exercise').id == $(papa).data('id')) {
         $(e).remove();
-        
-        Exercises = Exercises.filter(ex => ex.id != $(papa).data('id'));        
+
+        Exercises = Exercises.filter(ex => ex.id != $(papa).data('id'));
         save('Exercises', Exercises, $(papa).data('id'));
 
         createExercise.removeClass('open');

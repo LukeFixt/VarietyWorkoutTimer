@@ -5,11 +5,32 @@
 .text-light {
   color: #fff;
 }
+.text-dark {
+  color: var(--dark);
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
 
 .card-header .fab {
   position: absolute;
   right: 15px;
   z-index: 5;
+}
+
+.fab.body {
+  top: 120px;
+  right: 10px;
+  padding: 0;
 }
 
 .card-header .card-title.top {
@@ -37,6 +58,9 @@
   text-align: center;
   font-size: 8em;
   opacity: .5;
+}
+.card .card-content p {
+  white-space: pre-wrap;
 }
 
 #exerciseGrid .card .timeline {
@@ -86,30 +110,71 @@ body {
   display: flex;
 }
 
-.chip.Balance {
-  background-color: #0057D94a !important;
-}
-.chip.Endurance {
-  background-color: #00D9544a !important;
-}
-.chip.Flexibility {
-  background-color: #D990004a !important;
-}
-.chip.Strength {
-  background-color: #D9160B4a !important;
+:root {
+  --balance: #b5cef4;
+  --endurance: #b5f4cd;
+  --flexibility: #f4dfb5;
+  --strength: #f4bbb8;
 }
 
-.Balance.ripple-e {
-  --ripple-color: #0057D94a;
+.chip.Balance {
+  background-color: var(--balance) !important;
 }
-.Endurance.ripple-e {
-  --ripple-color: #00D9544a;
+.chip.Endurance {
+  background-color: var(--endurance) !important;
 }
-.Flexibility.ripple-e {
-  --ripple-color: #D990004a;
+.chip.Flexibility {
+  background-color: var(--flexibility) !important;
 }
-.Strength.ripple-e {
-  --ripple-color: #D9160B4a;
+.chip.Strength {
+  background-color: var(--strength) !important;
+}
+#body g#bodyOutline * {
+  stroke-width: 4px !important;
+}
+.Balance #bodyFill *{
+  fill: var(--balance) !important;
+}
+.Balance #separators * {
+  stroke: var(--balance) !important;
+}
+.Balance #body path.active,
+.Balance #body g.active * {
+  fill: var(--balance) !important;
+  filter: brightness(.8) saturate(15);
+}
+.Endurance #bodyFill *{
+  fill: var(--endurance) !important;
+}
+.Endurance #separators * {
+  stroke: var(--endurance) !important;
+}
+.Endurance #body path.active,
+.Endurance #body g.active * {
+  fill: var(--endurance) !important;
+  filter: brightness(.8) saturate(15);
+}
+.Flexibility #bodyFill *{
+  fill: var(--flexibility) !important;
+}
+.Flexibility #separators * {
+  stroke: var(--flexibility) !important;
+}
+.Flexibility #body path.active,
+.Flexibility #body g.active * {
+  fill: var(--flexibility) !important;
+  filter: brightness(.8) saturate(15);
+}
+.Strength #bodyFill *{
+  fill: var(--strength) !important;
+}
+.Strength #separators * {
+  stroke: var(--strength) !important;
+}
+.Strength #body path.active,
+.Strength #body g.active * {
+  fill: var(--strength) !important;
+  filter: brightness(.8) saturate(15);
 }
 
 .dialog .dialog-content {

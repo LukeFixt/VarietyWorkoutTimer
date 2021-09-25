@@ -11,16 +11,23 @@
 
 
 <div id="tempExercise" class="col-12 col-lg-4 col-xl-3 col-md-6 hidden">
-  <div class="card text-dark elevation-3 mb-4">
+  <div class="card  collapsed text-dark elevation-3 mb-4">
     <div class="card-ripple-container ripple-e __type" data-trigger="dialog" data-dialog="#createExercise">
       <div class="card-header">
         <h2 class="card-title top">__title</h2>
-        <!-- <button class="fab" data-tooltip="Edit exercise" alt="Edit exercise"><i class="material-icons">tune</i></button> -->
+        <div class="fab body">__body</div>
         <img src="" class="card-img background-dark material-icons">
-        <h3 class="card-title"><div class="chip me-1 mb-1">__groups</div><div class="chip __type">__type</div></h3>
-        <h4 class="card-meta-title">__sets x __reps</h4>
+        <div class="card-header-content col-12">
+          <!-- <button class="fab" data-tooltip="Edit exercise" alt="Edit exercise"><i class="material-icons">tune</i></button> -->
+          <h3 class="card-title">
+            __sets x __reps
+            <div class="hidden">__groups</div>
+          </h3>
+          <h4 class="card-meta-title"></h4>
+        </div>
       </div>
       <div class="card-content">
+        <div class="chip __type float-right col-5 text-center text-dark">__type</div>
         <p class="card-meta-text">__desc</p>
       </div>
     </div>
@@ -83,15 +90,19 @@
         </label>
       </div>
       <div class="flex">
-        <div class="text-dark me-1"><h5>Groups*</h5><span name="group-add"></span></div>
-        <div class="text-dark ms-1"><h5>Type*</h5><span name="type-add"></span></div>
-      </div>  
+        <div class="text-dark me-1">
+          <h5>Groups*</h5><span name="group-add"></span>
+        </div>
+        <div class="text-dark ms-1">
+          <h5>Type*</h5><span name="type-add"></span>
+        </div>
+      </div>
     </form>
     <div class="dialog-footer">
       <button id="add">Add</button>
       <button class="text" id="cancel">Cancel</button>
       <button class="text" id="delete">Delete</button>
-      
+
       <div id="newTime" class="card-footer me-auto">
         <div class="card-footer-start">
           <span class="chip background-none text-primary" data-tooltip="Active time" alt="Active time">

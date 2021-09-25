@@ -83,3 +83,8 @@ function load(name){
 function remove(name){
   localStorage.removeItem(name);
 }
+
+function camel(string){
+  string = string.split(' ').map(s=>s[0].toUpperCase() + s.slice(1)).join('');
+  return string[0].toLowerCase() + string.slice(1);
+}

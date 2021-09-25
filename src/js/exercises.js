@@ -125,7 +125,7 @@ function addExercise(newExercise, load = false) {
     exercise.groups.forEach(group => {
       $('#' + camel(group), s).addClass('active').show();
     })
-  }, 100);
+  }, 30);
 
   temp.data('exercise', exercise);
 
@@ -241,6 +241,12 @@ function editExercise(exercise, update = false) {
   $('[name=timeRest]', papa).val(exercise.timeRest);
   $('[name=media]', papa).val(exercise.media);
 
+  function resize() {
+    t = $('[name=desc]', papa)[0];
+    t.style.height = "";
+    t.style.height = t.scrollHeight + 25 + "px";
+  }
+  $('[name=desc]', papa).off('input').on('input', resize());
   updateNewTime();
 }
 

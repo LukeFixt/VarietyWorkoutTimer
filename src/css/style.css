@@ -20,6 +20,9 @@
 .float-right {
   float: right;
 }
+.bold {
+  font-weight: bold;
+}
 
 .card-header .fab {
   position: absolute;
@@ -31,11 +34,11 @@
   top: 120px;
   right: 10px;
   padding: 0;
+  z-index: auto;
 }
 
 .card-header .card-title.top {
   position: absolute;
-  left: 15px;
   z-index: 5;
   color: #fff;
   font-size: 2em !important;
@@ -130,7 +133,13 @@ body {
   background-color: var(--strength) !important;
 }
 #body g#bodyOutline * {
-  stroke-width: 4px !important;
+  stroke-width: 0px !important;
+}
+#body g#separators * {
+  stroke-width: 0px !important;
+}
+#body {
+  box-shadow: 5px 5px 5px black;
 }
 .Balance #bodyFill *{
   fill: var(--balance) !important;
@@ -141,7 +150,7 @@ body {
 .Balance #body path.active,
 .Balance #body g.active * {
   fill: var(--balance) !important;
-  filter: brightness(.8) saturate(15);
+  filter: brightness(.7) saturate(3);
 }
 .Endurance #bodyFill *{
   fill: var(--endurance) !important;
@@ -152,7 +161,7 @@ body {
 .Endurance #body path.active,
 .Endurance #body g.active * {
   fill: var(--endurance) !important;
-  filter: brightness(.8) saturate(15);
+  filter: brightness(.7) saturate(4);
 }
 .Flexibility #bodyFill *{
   fill: var(--flexibility) !important;
@@ -163,7 +172,7 @@ body {
 .Flexibility #body path.active,
 .Flexibility #body g.active * {
   fill: var(--flexibility) !important;
-  filter: brightness(.8) saturate(15);
+  filter: brightness(.8) saturate(6);
 }
 .Strength #bodyFill *{
   fill: var(--strength) !important;
@@ -174,7 +183,7 @@ body {
 .Strength #body path.active,
 .Strength #body g.active * {
   fill: var(--strength) !important;
-  filter: brightness(.8) saturate(15);
+  filter: brightness(.8) saturate(5);
 }
 
 .dialog .dialog-content {

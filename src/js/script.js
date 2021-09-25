@@ -73,3 +73,13 @@ function errorWatch(element){
     }
   })
 }
+
+function save(name, item){
+  localStorage.setItem(name, JSON.stringify(item));
+}
+function load(name){
+  return JSON.parse(localStorage.getItem(name));
+}
+function remove(name){
+  localStorage.removeItem(name);
+}

@@ -88,8 +88,12 @@ baseExercise = {
   media: '',
   total: 0
 }
+Exercises = [];
+if (load('Exercises')) {
+  Exercises = load('Exercises');
+}
 
-function addExercise(newExercise) {
+function addExercise(newExercise, load = false) {
   const base = baseExercise;
   baseExercise.id = (new Date()).getTime();
   const exercise = {
@@ -113,7 +117,7 @@ function addExercise(newExercise) {
       .replace('__media', exercise.media)
   );
 
-  temp.data('exercise',exercise);
+  temp.data('exercise', exercise);
 
   let active = $('<div class="active"></div>').width((exercise.timeActive / (exercise.total / 100)).toString() + '%');
   let rest = $('<div class="rest"></div>').width((exercise.timeRest / (exercise.total / 100)).toString() + '%');
@@ -137,18 +141,25 @@ function addExercise(newExercise) {
 
   replace = false;
 
-  $('#exerciseGrid > div').each((i,e)=>{
-    console.log(i, $(e).data('exercise').id, exercise.id)
-    if($(e).data('exercise').id == exercise.id){
+  $('#exerciseGrid > div').each((i, e) => {
+    if ($(e).data('exercise').id == exercise.id) {
       replace = true;
       $(e).after(temp);
       $(e).remove();
+      index = Exercises.findIndex(ex => ex.id == exercise.id);
+      Exercises[index] = exercise;
     }
   });
 
-  if(!replace){
+  if (!replace) {
     temp.appendTo($('#exerciseGrid'));
-  } else {}
+    if (!load) {
+      Exercises.push(exercise);
+    }
+  }
+  if (!load) {
+    save('Exercises', Exercises);
+  }
 
   $('.chip.unclick', groupFilter).each((i, e) => {
     $(e).click().removeClass('unclick');
@@ -156,17 +167,24 @@ function addExercise(newExercise) {
   $('.chip.unclick', typeFilter).each((i, e) => {
     $(e).click().removeClass('unclick');
   })
-  console.log(exercise)
 }
-addExercise({
-  title: 'Standing Lunge',
-  groups: ['Butt'],
-  type: 'Strength',
-  sets: 3,
-  reps: 20,
-  timeActive: 90,
-  timeRest: 60,
-})
+
+if (Exercises.length > 0) {
+  Exercises.forEach(ex => {
+    addExercise(ex,true);
+  })
+} else {
+  addExercise({
+    title: 'Standing Lunge',
+    groups: ['Butt'],
+    type: 'Strength',
+    sets: 3,
+    reps: 20,
+    timeActive: 90,
+    timeRest: 60,
+  })
+  save('Exercises', Exercises);
+}
 
 createExercise = $('#createExercise');
 
@@ -181,7 +199,7 @@ function editExercise(exercise, update = false) {
   } else {
     $('.dialog-header').text('New Exercise');
     $('#add').text('Add');
-    $(papa).data('id',(new Date()).getTime());
+    $(papa).data('id', (new Date()).getTime());
 
     $('#delete').hide();
   }
@@ -205,8 +223,6 @@ function editExercise(exercise, update = false) {
       $(e).find('input').prop('checked', false);
     }
   });
-
-  console.log($(papa).data('id'))
 
   $('[name=title]', papa).val(exercise.title);
   $('[name=desc]', papa).val(exercise.desc);
@@ -280,8 +296,6 @@ $('#add', createExercise).on('click', e => {
     type = [];
     $('[name=type-add] .active', papa).each((i, e) => type.push($(e).text()));
 
-    console.log($(papa).data('id'));
-
     addExercise({
       title: $('[name=title]', papa).val(),
       desc: $('[name=desc]', papa).val(),
@@ -309,14 +323,17 @@ $('#cancel', createExercise).on('click', e => {
 
 $('#delete', createExercise).on('click', e => {
   papa = $('.dialog-content', createExercise);
-  if(confirm(`Are you sure you want to delete ${$('[name=title]',papa).val()}?`)){
+  if (confirm(`Are you sure you want to delete ${$('[name=title]', papa).val()}?`)) {
 
-  $('#exerciseGrid > div').each((i,e)=>{
-    console.log(i, $(e).data('exercise').id, $(papa).data('id'))
-    if($(e).data('exercise').id == $(papa).data('id')){
-      $(e).remove();
-      createExercise.removeClass('open');
-    }
-  });
+    $('#exerciseGrid > div').each((i, e) => {
+      if ($(e).data('exercise').id == $(papa).data('id')) {
+        $(e).remove();
+        
+        Exercises = Exercises.filter(ex => ex.id != $(papa).data('id'));        
+        save('Exercises', Exercises, $(papa).data('id'));
+
+        createExercise.removeClass('open');
+      }
+    });
   }
 });

@@ -12,7 +12,7 @@ I don't enjoy doing the same excercise each session - this keeps it "fresh". Cur
   - [ ] Performance screen
   - [ ] Community screen (maybe/endgame)
 - [ ] Functionality
-  - [ ] Create excersise
+  - [x] Create excersise
     - [ ] Title, Sets, Reps, Timer (Active, Rest), Image/video, Description, Muscle group, Type (endurance, strength, balance, and flexibility)
     - [ ] Rating at end of exercise - option to increase/decrease sets/reps
   - [ ] Warmup & Cooldown, Timer, Description, Chapters (Sub timers/sub workout?)

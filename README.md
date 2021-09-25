@@ -20,5 +20,6 @@ I don't enjoy doing the same excercise each session - this keeps it "fresh". Cur
   - [ ] Global multipliers for reps/sets as you improve - percent increase over time (slow, <2% probably, customisable)
   - [ ] Set workout days, workout goals, experience
   - [ ] Select from community generated excesises (maybe/endgame)
+  - [ ] Import/Export data (JSON)
 
 > ## Disclaimer: I am not a health expert this is just a personal project for fun

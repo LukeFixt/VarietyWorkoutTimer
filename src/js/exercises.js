@@ -118,7 +118,7 @@ function addExercise(newExercise, load = false) {
       .replace('__media', exercise.media)
   );
 
-  svg = $('.bodyGraphic', temp).load('../src/img/body.svg');
+  svg = $('.bodyGraphic', temp).load('src/img/body.svg');
 
   setTimeout(() => {
     var s = $('.bodyGraphic', temp);
